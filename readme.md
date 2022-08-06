@@ -11,23 +11,23 @@ In 1.17+, an invisible item frame can be crafted with a glow ink sac to create a
 ## Permissions
 Permission | Description
 --- | ---
-`survivalinvisiframes.place` | Allows the player to place an invisible item frame (enabled by default)
-`survivalinvisiframes.craft`| Allows the player to craft an invisible item frame (enabled by default)
-`survivalinvisiframes.cmd` | Allows the player to run commands from this plugin
-`survivalinvisiframes.reload` | Permission to run `/iframe reload`
-`survivalinvisiframes.forcerecheck` | Permission to run `/iframe force-recheck`
-`survivalinvisiframes.get` | Permission to run `/iframe get`
-`survivalinvisiframes.setitem` | Permission to run `/iframe setitem`
+`craftableinvframes.place` | Allows the player to place an invisible item frame (enabled by default)
+`craftableinvframes.craft`| Allows the player to craft an invisible item frame (enabled by default)
+`craftableinvframes.cmd` | Allows the player to run commands from this plugin
+`craftableinvframes.reload` | Permission to run `/iframe reload`
+`craftableinvframes.forcerecheck` | Permission to run `/iframe force-recheck`
+`craftableinvframes.get` | Permission to run `/iframe get`
+`craftableinvframes.setitem` | Permission to run `/iframe setitem`
 
 ## Commands
-Permission required for all commands: `survivalinvisiframes.cmd`
+Permission required for all commands: `craftableinvframes.cmd`
 
 Command | Description | Permission
 --- | --- | ---
-`/iframe` or `/iframe get` | Gives the player an invisible item frame | `survivalinvisiframes.get`
-`/iframe reload` | Reloads the config | `survivalinvisiframes.reload`
-`/iframe force-recheck` | Rechecks all loaded invisible item frames to add/remove slimes manually | `survivalinvisiframes.forcerecheck`
-`/iframe setitem` | Sets the recipe center item to the held item | `survivalinvisiframes.setitem`
+`/iframe` or `/iframe get` | Gives the player an invisible item frame | `craftableinvframes.get`
+`/iframe reload` | Reloads the config | `craftableinvframes.reload`
+`/iframe force-recheck` | Rechecks all loaded invisible item frames to add/remove slimes manually | `craftableinvframes.forcerecheck`
+`/iframe setitem` | Sets the recipe center item to the held item | `craftableinvframes.setitem`
 
 ## Config
 ```yaml
