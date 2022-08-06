@@ -259,27 +259,14 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         }
     }
     
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    @EventHandler
     private void onHangingBreak(HangingBreakEvent event)
     {
-        if(!isFrameEntity(event.getEntity()) || !event.getEntity().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
-        {
-            return;
+        if (event.getEntity().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE)) {
+            event.setCancelled(true);
+            event.getEntity().remove();
+            event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), generateInvisibleItemFrame());
         }
-        
-        // This is the dumbest possible way to change the drops of an item frame
-        // Apparently, there's no api to change the dropped item
-        // So this sets up a bounding box that checks for items near the frame and converts them
-        DroppedFrameLocation droppedFrameLocation = new DroppedFrameLocation(event.getEntity().getLocation());
-        droppedFrames.add(droppedFrameLocation);
-        droppedFrameLocation.setRemoval((new BukkitRunnable()
-        {
-            @Override
-            public void run()
-            {
-                droppedFrames.remove(droppedFrameLocation);
-            }
-        }).runTaskLater(this, 20L));
     }
     
     @EventHandler
