@@ -1,4 +1,4 @@
-package com.darkender.plugins.survivalinvisiframes;
+package com.spiritothawk.plugins.craftableinvframes;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Item;

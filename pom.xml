@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.darkender.plugins</groupId>
-    <artifactId>survival-invisiframes</artifactId>
-    <version>2.1.0</version>
-    <name>SurvivalInvisiframes</name>
+    <groupId>com.spiritothawk.plugins</groupId>
+    <artifactId>craftableinvframes</artifactId>
+    <version>2.1.1</version>
+    <name>CraftableInvFrames</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

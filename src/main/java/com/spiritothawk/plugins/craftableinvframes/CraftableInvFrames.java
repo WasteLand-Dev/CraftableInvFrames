@@ -1,4 +1,4 @@
-package com.darkender.plugins.survivalinvisiframes;
+package com.spiritothawk.plugins.craftableinvframes;
 
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class SurvivalInvisiframes extends JavaPlugin implements Listener
+public class CraftableInvFrames extends JavaPlugin implements Listener
 {
     private NamespacedKey invisibleRecipe;
     private static NamespacedKey invisibleKey;
@@ -167,7 +167,7 @@ public class SurvivalInvisiframes extends JavaPlugin implements Listener
     @EventHandler(ignoreCancelled = true)
     private void onCraft(PrepareItemCraftEvent event)
     {
-        if(isInvisibleRecipe(event.getRecipe()) && !event.getView().getPlayer().hasPermission("survivalinvisiframes.craft"))
+        if(isInvisibleRecipe(event.getRecipe()) && !event.getView().getPlayer().hasPermission("craftableinvframes.craft"))
         {
             event.getInventory().setResult(null);
         }
@@ -198,7 +198,7 @@ public class SurvivalInvisiframes extends JavaPlugin implements Listener
                 return;
             }
             
-            if(foundFrame && foundInkSac && event.getView().getPlayer().hasPermission("survivalinvisiframes.craft"))
+            if(foundFrame && foundInkSac && event.getView().getPlayer().hasPermission("craftableinvframes.craft"))
             {
                 ItemStack invisibleGlowingItem = generateInvisibleItemFrame();
                 ItemMeta meta = invisibleGlowingItem.getItemMeta();
@@ -240,7 +240,7 @@ public class SurvivalInvisiframes extends JavaPlugin implements Listener
         // If the frame item has the invisible tag, make the placed item frame invisible
         if(frame.getItemMeta().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
         {
-            if(!p.hasPermission("survivalinvisiframes.place"))
+            if(!p.hasPermission("craftableinvframes.place"))
             {
                 event.setCancelled(true);
                 return;

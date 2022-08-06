@@ -1,4 +1,4 @@
-package com.darkender.plugins.survivalinvisiframes;
+package com.spiritothawk.plugins.craftableinvframes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class InvisiFramesCommand implements CommandExecutor, TabCompleter
 {
-    private SurvivalInvisiframes survivalInvisiframes;
+    private CraftableInvFrames craftableinvframes;
     
-    public InvisiFramesCommand(SurvivalInvisiframes survivalInvisiframes)
+    public InvisiFramesCommand(CraftableInvFrames craftableinvframes)
     {
-        this.survivalInvisiframes = survivalInvisiframes;
+        this.craftableinvframes = craftableinvframes;
     }
     
     @Override
@@ -32,29 +32,29 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
         }
         else if(args[0].equalsIgnoreCase("reload"))
         {
-            if(!sender.hasPermission("survivalinvisiframes.reload"))
+            if(!sender.hasPermission("craftableinvframes.reload"))
             {
                 sendNoPermissionMessage(sender);
                 return true;
             }
-            survivalInvisiframes.reload();
+            craftableinvframes.reload();
             sender.sendMessage(ChatColor.GREEN + "Reloaded!");
             return true;
         }
         else if(args[0].equalsIgnoreCase("force-recheck"))
         {
-            if(!sender.hasPermission("survivalinvisiframes.forcerecheck"))
+            if(!sender.hasPermission("craftableinvframes.forcerecheck"))
             {
                 sendNoPermissionMessage(sender);
                 return true;
             }
-            survivalInvisiframes.forceRecheck();
+            craftableinvframes.forceRecheck();
             sender.sendMessage(ChatColor.GREEN + "Rechecked invisible item frames");
             return true;
         }
         else if(args[0].equalsIgnoreCase("setitem"))
         {
-            if(!sender.hasPermission("survivalinvisiframes.setitem"))
+            if(!sender.hasPermission("craftableinvframes.setitem"))
             {
                 sendNoPermissionMessage(sender);
                 return true;
@@ -65,7 +65,7 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
                 return true;
             }
             ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
-            survivalInvisiframes.setRecipeItem(item);
+            craftableinvframes.setRecipeItem(item);
             sender.sendMessage(ChatColor.GREEN + "Recipe item updated!");
             return true;
         }
@@ -80,19 +80,19 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
             return Collections.emptyList();
         }
         List<String> options = new ArrayList<>();
-        if(sender.hasPermission("survivalinvisiframes.get"))
+        if(sender.hasPermission("craftableinvframes.get"))
         {
             options.add("get");
         }
-        if(sender.hasPermission("survivalinvisiframes.reload"))
+        if(sender.hasPermission("craftableinvframes.reload"))
         {
             options.add("reload");
         }
-        if(sender.hasPermission("survivalinvisiframes.forcerecheck"))
+        if(sender.hasPermission("craftableinvframes.forcerecheck"))
         {
             options.add("force-recheck");
         }
-        if(sender.hasPermission("survivalinvisiframes.setitem"))
+        if(sender.hasPermission("craftableinvframes.setitem"))
         {
             options.add("setitem");
         }
@@ -109,7 +109,7 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
     
     private void giveItem(CommandSender sender)
     {
-        if(!sender.hasPermission("survivalinvisiframes.get"))
+        if(!sender.hasPermission("craftableinvframes.get"))
         {
             sendNoPermissionMessage(sender);
             return;
@@ -121,7 +121,7 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
         }
         
         Player player = (Player) sender;
-        player.getInventory().addItem(SurvivalInvisiframes.generateInvisibleItemFrame());
+        player.getInventory().addItem(craftableinvframes.generateInvisibleItemFrame());
         player.sendMessage(ChatColor.GREEN + "Added an invisible item frame to your inventory");
     }
 }
