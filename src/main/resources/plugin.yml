@@ -2,7 +2,7 @@ name: craftableinvframes
 version: ${project.version}
 api-version: 1.19
 main: com.spiritothawk.plugins.craftableinvframes.CraftableInvFrames
-author: Techdoodle, SpiritOTHawk
+authors: [Techdoodle, SpiritOTHawk]
 commands:
   iframe:
     permission: craftableinvframes.cmd
