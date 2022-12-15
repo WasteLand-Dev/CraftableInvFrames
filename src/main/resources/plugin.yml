@@ -1,6 +1,6 @@
 name: craftableinvframes
 version: ${project.version}
-api-version: 1.19
+api-version: 1.18
 main: com.spiritothawk.plugins.craftableinvframes.CraftableInvFrames
 authors: [Techdoodle, SpiritOTHawk]
 commands:
