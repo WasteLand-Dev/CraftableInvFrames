@@ -15,7 +15,7 @@ import org.bukkit.util.StringUtil;
 
 public class InvisiFramesCommand implements CommandExecutor, TabCompleter
 {
-    private CraftableInvFrames craftableinvframes;
+    private final CraftableInvFrames craftableinvframes;
     
     public InvisiFramesCommand(CraftableInvFrames craftableinvframes)
     {

@@ -47,6 +47,11 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
     private Material glowFrame = null;
     private EntityType glowFrameEntity = null;
     
+    /* (non-Javadoc)
+     * @see org.bukkit.plugin.java.JavaPlugin#onEnable()
+     * Enabling the plugin
+     */
+
     @Override
     public void onEnable()
     {
@@ -71,6 +76,10 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         getCommand("iframe").setTabCompleter(invisiFramesCommand);
     }
     
+    /* (non-Javadoc)
+     * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
+     * Disabling the plugin
+     */
     @Override
     public void onDisable()
     {
