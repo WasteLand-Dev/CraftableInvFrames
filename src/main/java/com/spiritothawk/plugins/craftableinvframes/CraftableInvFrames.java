@@ -1,20 +1,8 @@
 package com.spiritothawk.plugins.craftableinvframes;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -24,42 +12,38 @@ import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class CraftableInvFrames extends JavaPlugin implements Listener
 {
     private NamespacedKey invisibleRecipe;
     private static NamespacedKey invisibleKey;
     private Set<DroppedFrameLocation> droppedFrames;
-    
+
     private boolean framesGlow;
     private boolean firstLoad = true;
-    
+
     // Stays null if not in 1.17
     private Material glowInkSac = null;
     private Material glowFrame = null;
     private EntityType glowFrameEntity = null;
-    
-    /* (non-Javadoc)
-     * @see org.bukkit.plugin.java.JavaPlugin#onEnable()
-     * Enabling the plugin
-     */
 
     @Override
     public void onEnable()
     {
         invisibleRecipe = new NamespacedKey(this, "invisible-recipe");
         invisibleKey = new NamespacedKey(this, "invisible");
-        
+
         droppedFrames = new HashSet<>();
-    
+
         try
         {
             glowInkSac = Material.valueOf("GLOW_INK_SAC");
@@ -67,26 +51,22 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             glowFrameEntity = EntityType.valueOf("GLOW_ITEM_FRAME");
         }
         catch(IllegalArgumentException ignored) {}
-        
+
         reload();
-        
+
         getServer().getPluginManager().registerEvents(this, this);
         InvisiFramesCommand invisiFramesCommand = new InvisiFramesCommand(this);
         getCommand("iframe").setExecutor(invisiFramesCommand);
         getCommand("iframe").setTabCompleter(invisiFramesCommand);
     }
-    
-    /* (non-Javadoc)
-     * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
-     * Disabling the plugin
-     */
+
     @Override
     public void onDisable()
     {
         // Remove added recipes on plugin disable
         removeRecipe();
     }
-    
+
     private void removeRecipe()
     {
         Iterator<Recipe> iter = getServer().recipeIterator();
@@ -100,14 +80,14 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             }
         }
     }
-    
+
     public void setRecipeItem(ItemStack item)
     {
         getConfig().set("recipe", item);
         saveConfig();
         reload();
     }
-    
+
     public void reload()
     {
         saveDefaultConfig();
@@ -115,7 +95,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         getConfig().options().copyDefaults(true);
         saveConfig();
         removeRecipe();
-        
+
         if(firstLoad)
         {
             firstLoad = false;
@@ -126,10 +106,10 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             framesGlow = getConfig().getBoolean("item-frames-glow");
             forceRecheck();
         }
-    
+
         ItemStack invisibleItem = generateInvisibleItemFrame();
         invisibleItem.setAmount(8);
-        
+
         ItemStack invisibilityPotion = getConfig().getItemStack("recipe");
         ShapedRecipe invisRecipe = new ShapedRecipe(invisibleRecipe, invisibleItem);
         invisRecipe.shape("FFF", "FPF", "FFF");
@@ -137,7 +117,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         invisRecipe.setIngredient('P', new RecipeChoice.ExactChoice(invisibilityPotion));
         Bukkit.addRecipe(invisRecipe);
     }
-    
+
     public void forceRecheck()
     {
         for(World world : Bukkit.getWorlds())
@@ -160,18 +140,18 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             }
         }
     }
-    
+
     private boolean isInvisibleRecipe(Recipe recipe)
     {
         return (recipe instanceof ShapedRecipe && ((ShapedRecipe) recipe).getKey().equals(invisibleRecipe));
     }
-    
+
     private boolean isFrameEntity(Entity entity)
     {
         return (entity != null && (entity.getType() == EntityType.ITEM_FRAME ||
                 (glowFrameEntity != null && entity.getType() == glowFrameEntity)));
     }
-    
+
     public static ItemStack generateInvisibleItemFrame()
     {
         ItemStack item = new ItemStack(Material.ITEM_FRAME, 1);
@@ -183,7 +163,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         item.setItemMeta(meta);
         return item;
     }
-    
+
     @EventHandler(ignoreCancelled = true)
     private void onCraft(PrepareItemCraftEvent event)
     {
@@ -198,14 +178,14 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             for(ItemStack i : event.getInventory().getMatrix())
             {
                 if(i == null || i.getType() == Material.AIR) continue;
-                
+
                 if(i.getType() == glowInkSac)
                 {
                     if(foundInkSac) return;
                     foundInkSac = true;
                     continue;
                 }
-                
+
                 if(i.getItemMeta().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE) &&
                         i.getType() != glowFrame)
                 {
@@ -213,11 +193,11 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
                     foundFrame = true;
                     continue;
                 }
-                
+
                 // Item isn't what we're looking for
                 return;
             }
-            
+
             if(foundFrame && foundInkSac && event.getView().getPlayer().hasPermission("craftableinvframes.craft"))
             {
                 ItemStack invisibleGlowingItem = generateInvisibleItemFrame();
@@ -225,12 +205,12 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
                 meta.setDisplayName(ChatColor.WHITE + "Glow Invisible Item Frame");
                 invisibleGlowingItem.setItemMeta(meta);
                 invisibleGlowingItem.setType(glowFrame);
-                
+
                 event.getInventory().setResult(invisibleGlowingItem);
             }
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     private void onHangingPlace(HangingPlaceEvent event)
     {
@@ -238,7 +218,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         {
             return;
         }
-        
+
         // Get the frame item that the player placed
         ItemStack frame;
         Player p = event.getPlayer();
@@ -256,7 +236,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         {
             return;
         }
-        
+
         // If the frame item has the invisible tag, make the placed item frame invisible
         if(frame.getItemMeta().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
         {
@@ -278,17 +258,30 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             event.getEntity().getPersistentDataContainer().set(invisibleKey, PersistentDataType.BYTE, (byte) 1);
         }
     }
-    
-    @EventHandler
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     private void onHangingBreak(HangingBreakEvent event)
     {
-        if (event.getEntity().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE)) {
-            event.setCancelled(true);
-            event.getEntity().remove();
-            event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), generateInvisibleItemFrame());
+        if(!isFrameEntity(event.getEntity()) || !event.getEntity().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
+        {
+            return;
         }
+
+        // This is the dumbest possible way to change the drops of an item frame
+        // Apparently, there's no api to change the dropped item
+        // So this sets up a bounding box that checks for items near the frame and converts them
+        DroppedFrameLocation droppedFrameLocation = new DroppedFrameLocation(event.getEntity().getLocation());
+        droppedFrames.add(droppedFrameLocation);
+        droppedFrameLocation.setRemoval((new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                droppedFrames.remove(droppedFrameLocation);
+            }
+        }).runTaskLater(this, 20L));
     }
-    
+
     @EventHandler
     private void onItemSpawn(ItemSpawnEvent event)
     {
@@ -297,7 +290,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         {
             return;
         }
-        
+
         Iterator<DroppedFrameLocation> iter = droppedFrames.iterator();
         while(iter.hasNext())
         {
@@ -313,14 +306,14 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
                     frame.setType(glowFrame);
                 }
                 event.getEntity().setItemStack(frame);
-                
+
                 droppedFrameLocation.getRemoval().cancel();
                 iter.remove();
                 break;
             }
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true)
     private void onPlayerInteractEntity(PlayerInteractEntityEvent event)
     {
@@ -328,7 +321,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         {
             return;
         }
-        
+
         if(isFrameEntity(event.getRightClicked()) &&
                 event.getRightClicked().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
         {
@@ -343,7 +336,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
             }, 1L);
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true)
     private void onEntityDamageByEntity(EntityDamageByEntityEvent event)
     {
@@ -351,7 +344,7 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         {
             return;
         }
-        
+
         if(isFrameEntity(event.getEntity()) &&
                 event.getEntity().getPersistentDataContainer().has(invisibleKey, PersistentDataType.BYTE))
         {
