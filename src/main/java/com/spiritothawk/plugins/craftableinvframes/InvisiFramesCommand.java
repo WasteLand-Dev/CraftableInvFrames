@@ -30,6 +30,17 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
             giveItem(sender);
             return true;
         }
+        else if(args[0].equalsIgnoreCase("give"))
+        {
+            String playerName = args[1];
+            Player target = sender.getServer().getPlayerExact(playerName);
+            if (target == null) { 
+                sender.sendMessage(ChatColor.RED + "Player " + playerName + " is not online.");
+                return true;
+            }
+            giveItem(target);
+            return true;
+        }
         else if(args[0].equalsIgnoreCase("reload"))
         {
             if(!sender.hasPermission("craftableinvframes.reload"))
@@ -83,6 +94,10 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
         if(sender.hasPermission("craftableinvframes.get"))
         {
             options.add("get");
+        }
+        if(sender.hasPermission("craftableinvframes.give"))
+        {
+            options.add("give");
         }
         if(sender.hasPermission("craftableinvframes.reload"))
         {

@@ -17,6 +17,7 @@ Permission | Description
 `craftableinvframes.reload` | Permission to run `/iframe reload`
 `craftableinvframes.forcerecheck` | Permission to run `/iframe force-recheck`
 `craftableinvframes.get` | Permission to run `/iframe get`
+`craftableinvframes.give` | Permission to run `/iframe give <player>`
 `craftableinvframes.setitem` | Permission to run `/iframe setitem`
 
 ## Commands
@@ -25,6 +26,7 @@ Permission required for all commands: `craftableinvframes.cmd`
 Command | Description | Permission
 --- | --- | ---
 `/iframe` or `/iframe get` | Gives the player an invisible item frame | `craftableinvframes.get`
+`/iframe give` | Gives a certain player an invisible item frame | `craftableinvframes.give`
 `/iframe reload` | Reloads the config | `craftableinvframes.reload`
 `/iframe force-recheck` | Rechecks all loaded invisible item frames to add/remove slimes manually | `craftableinvframes.forcerecheck`
 `/iframe setitem` | Sets the recipe center item to the held item | `craftableinvframes.setitem`

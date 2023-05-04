@@ -21,5 +21,7 @@ permissions:
     default: op
   craftableinvframes.get:
     default: op
+  craftableinvframes.give:
+    default: op
   craftableinvframes.setitem:
     default: op
