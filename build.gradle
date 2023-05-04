@@ -23,7 +23,7 @@ dependencies {
 }
 
 group = 'com.spiritothawk.plugins'
-version = '2.2.0-Snapshot'
+version = '2.2.0'
 description = 'CraftableInvFrames'
 java.sourceCompatibility = JavaVersion.VERSION_17
 
