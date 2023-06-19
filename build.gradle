@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
 }
 
 group = 'com.spiritothawk.plugins'
-version = '2.2.2-SNAPSHOT'
+version = '2.2.2'
 description = 'CraftableInvFrames'
 java.sourceCompatibility = JavaVersion.VERSION_17
 
