@@ -81,9 +81,15 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         }
     }
 
-    public void setRecipeItem(ItemStack item)
+    public void setCenter(ItemStack item)
     {
-        getConfig().set("recipe", item);
+        getConfig().set("center", item);
+        saveConfig();
+        reload();
+    }
+    public void setAround(ItemStack item)
+    {
+        getConfig().set("around", item);
         saveConfig();
         reload();
     }
@@ -110,11 +116,12 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         ItemStack invisibleItem = generateInvisibleItemFrame();
         invisibleItem.setAmount(8);
 
-        ItemStack invisibilityPotion = getConfig().getItemStack("recipe");
+        ItemStack center = getConfig().getItemStack("center");
+        ItemStack around = getConfig().getItemStack("around");
         ShapedRecipe invisRecipe = new ShapedRecipe(invisibleRecipe, invisibleItem);
         invisRecipe.shape("FFF", "FPF", "FFF");
-        invisRecipe.setIngredient('F', Material.ITEM_FRAME);
-        invisRecipe.setIngredient('P', new RecipeChoice.ExactChoice(invisibilityPotion));
+        invisRecipe.setIngredient('F', new RecipeChoice.ExactChoice(around));
+        invisRecipe.setIngredient('P', new RecipeChoice.ExactChoice(center));
         Bukkit.addRecipe(invisRecipe);
     }
 

@@ -75,10 +75,21 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
                 sender.sendMessage(ChatColor.RED + "Sorry, you must be a player to use this command!");
                 return true;
             }
-            ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
-            craftableinvframes.setRecipeItem(item);
-            sender.sendMessage(ChatColor.GREEN + "Recipe item updated!");
-            return true;
+            if(args[1].equalsIgnoreCase("around"))
+            {
+                ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
+                craftableinvframes.setAround(item);
+                sender.sendMessage(ChatColor.GREEN + "Recipe item updated!");
+                return true;
+
+            } else if(args[1].equalsIgnoreCase("center"))
+            {
+                ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
+                craftableinvframes.setCenter(item);
+                sender.sendMessage(ChatColor.GREEN + "Recipe item updated!");
+                return true;
+
+            }
         }
         return false;
     }
@@ -91,28 +102,34 @@ public class InvisiFramesCommand implements CommandExecutor, TabCompleter
             return Collections.emptyList();
         }
         List<String> options = new ArrayList<>();
-        if(sender.hasPermission("craftableinvframes.get"))
-        {
-            options.add("get");
-        }
-        if(sender.hasPermission("craftableinvframes.give"))
-        {
-            options.add("give");
-        }
-        if(sender.hasPermission("craftableinvframes.reload"))
-        {
-            options.add("reload");
-        }
-        if(sender.hasPermission("craftableinvframes.forcerecheck"))
-        {
-            options.add("force-recheck");
-        }
-        if(sender.hasPermission("craftableinvframes.setitem"))
-        {
-            options.add("setitem");
-        }
         List<String> completions = new ArrayList<>();
-        StringUtil.copyPartialMatches(args[0], options, completions);
+        if (args.length == 1) {
+            if (sender.hasPermission("craftableinvframes.get")) {
+                options.add("get");
+            }
+            if (sender.hasPermission("craftableinvframes.give")) {
+                options.add("give");
+            }
+            if (sender.hasPermission("craftableinvframes.reload")) {
+                options.add("reload");
+            }
+            if (sender.hasPermission("craftableinvframes.forcerecheck")) {
+                options.add("force-recheck");
+            }
+            if(sender.hasPermission("craftableinvframes.setitem"))
+            {
+                options.add("setitem");
+            }
+            StringUtil.copyPartialMatches(args[0], options, completions);
+        } else if (args.length == 2) {
+            if (args[0].equals("setitem")) {
+                if(sender.hasPermission("craftableinvframes.setitem"))
+                    completions.add("around");
+                if(sender.hasPermission("craftableinvframes.setitem"))
+                    completions.add("center");
+            }
+            StringUtil.copyPartialMatches(args[1], options, completions);
+        }
         Collections.sort(completions);
         return completions;
     }
