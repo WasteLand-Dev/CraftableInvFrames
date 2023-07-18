@@ -3,8 +3,8 @@
 
 This plugin enables the use of 1.20's invisible item frames for survival players
 
-Invisible item frames are crafted similar to tipped arrows - one lingering invisibility potion surrounded by 8 item frames\
-![Recipe Screenshot](https://i.imgur.com/RtX84ic.png)
+Invisible item frames are crafted similar to tipped arrows - one phantom membrane surrounded by 8 sticks\
+![Recipe Screenshot](https://images-ext-2.discordapp.net/external/J0jFEaV1kCIJ-dlmniy-sfem5lSU95hJpjppvbtlQKc/https/i.imgur.com/GGvNse2.png)
 
 In 1.17+, an invisible item frame can be crafted with a glow ink sac to create a glowing invisible item frame
 
@@ -18,18 +18,18 @@ Permission | Description
 `craftableinvframes.forcerecheck` | Permission to run `/iframe force-recheck`
 `craftableinvframes.get` | Permission to run `/iframe get`
 `craftableinvframes.give` | Permission to run `/iframe give <player>`
-`craftableinvframes.setitem` | Permission to run `/iframe setitem`
+`craftableinvframes.setitem` | Permission to run `/iframe setitem around/center`
 
 ## Commands
 Permission required for all commands: `craftableinvframes.cmd`
 
-Command | Description | Permission
---- | --- | ---
-`/iframe` or `/iframe get` | Gives the player an invisible item frame | `craftableinvframes.get`
-`/iframe give` | Gives a certain player an invisible item frame | `craftableinvframes.give`
-`/iframe reload` | Reloads the config | `craftableinvframes.reload`
+Command | Description                                                             | Permission
+--- |-------------------------------------------------------------------------| ---
+`/iframe` or `/iframe get` | Gives the player an invisible item frame                                | `craftableinvframes.get`
+`/iframe give` | Gives a certain player an invisible item frame                          | `craftableinvframes.give`
+`/iframe reload` | Reloads the config                                                      | `craftableinvframes.reload`
 `/iframe force-recheck` | Rechecks all loaded invisible item frames to add/remove slimes manually | `craftableinvframes.forcerecheck`
-`/iframe setitem` | Sets the recipe center item to the held item | `craftableinvframes.setitem`
+`/iframe setitem around/center` | Sets the recipe around/center item to the held item                     | `craftableinvframes.setitem`
 
 ## Config
 ```yaml
@@ -39,12 +39,12 @@ item-frames-glow: true
 
 # The item in the center of the recipe
 # Recommended to use "/iframe setitem" to change this
-recipe:
+center:
   ==: org.bukkit.inventory.ItemStack
   v: 2567
-  type: LINGERING_POTION
-  meta:
-    ==: ItemMeta
-    meta-type: POTION
-    potion-type: minecraft:invisibility
+  type: PHANTOM_MEMBRANE
+around:
+  ==: org.bukkit.inventory.ItemStack
+  v: 2567
+  type: STICK
 ```

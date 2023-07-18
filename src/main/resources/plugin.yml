@@ -1,5 +1,5 @@
 name: craftableinvframes
-version: ${project.version}
+version: 2.2.2.2
 api-version: 1.13
 main: com.spiritothawk.plugins.craftableinvframes.CraftableInvFrames
 authors: [Techdoodle, SpiritOTHawk, Timoti11]
@@ -23,5 +23,7 @@ permissions:
     default: op
   craftableinvframes.give:
     default: op
-  craftableinvframes.setitem:
+  craftableinvframes.setitem.around:
+    default: op
+  craftableinvframes.setitem.center:
     default: op

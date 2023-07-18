@@ -81,9 +81,14 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
         }
     }
 
-    public void setRecipeItem(ItemStack item)
+    public void setCenter(ItemStack item)
     {
         getConfig().set("center", item);
+        saveConfig();
+        reload();
+    }
+    public void setAround(ItemStack item)
+    {
         getConfig().set("around", item);
         saveConfig();
         reload();
