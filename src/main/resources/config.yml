@@ -4,11 +4,11 @@ item-frames-glow: true
 
 # The item in the center of the recipe
 # Recommended to use "/iframe setitem" to change this
-recipe:
+center:
   ==: org.bukkit.inventory.ItemStack
   v: 2567
-  type: LINGERING_POTION
-  meta:
-    ==: ItemMeta
-    meta-type: POTION
-    potion-type: minecraft:invisibility
+  type: PHANTOM_MEMBRANE
+around:
+  ==: org.bukkit.inventory.ItemStack
+  v: 2567
+  type: STICK
