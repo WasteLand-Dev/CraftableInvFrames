@@ -156,8 +156,6 @@ public class CraftableInvFrames extends JavaPlugin implements Listener
     {
         ItemStack item = new ItemStack(Material.ITEM_FRAME, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.addEnchant(Enchantment.DURABILITY, 1 ,true);
         meta.setDisplayName(ChatColor.WHITE + "Invisible Item Frame");
         meta.getPersistentDataContainer().set(invisibleKey, PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
