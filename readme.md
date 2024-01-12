@@ -1,4 +1,4 @@
-# CraftableInvFrames
+# CraftableInvFrames (Moved to [codeberg](https://codeberg.org/WasteLandOrigin/CraftableInvFrames))
 ### A fork of Survival Invisiframes
 
 This plugin enables the use of 1.20's invisible item frames for survival players
